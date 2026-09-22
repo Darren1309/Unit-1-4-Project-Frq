@@ -8,7 +8,7 @@ public class Cafe{
         System.out.println("Please enter the name for your Cafe: ");
         String cafeName = i.nextLine();
         System.out.println("Welcome to the " + cafeName + " Cafe! The goal is to make as much money as possible in 7 days. \nYou will start with $100.00 and you will have to buy ingredients for your Cafe. \nYou will then have to serve customers and make money. Good luck!");
-        //declaring food items on the menu into the orderFood class
+        //creating food items on the menu into the orderFood class
         orderFood coffee = new orderFood("Coffee", 6.50);
         orderFood muffin = new orderFood("Muffin", 7.00);
         orderFood sandwich = new orderFood("Sandwich", 9.00);
@@ -52,18 +52,18 @@ public class Cafe{
                 String input = i.nextLine();
                 
                 System.out.println("Type the number for the ingredient you would like to add to your stock, or type 'exit' to exit the program.");
-                if (input.equals("exit")){
+                if (input.equals("exit")){ //checking if user wants to exit the program, breaking out of the program if true
                     System.out.println("Thank you for using the Cafe program!");
                     break;
                 }
-                else if (input.equals("1")){
-                    if (money < 2.00){
+                else if (input.equals("1")){ //checking if the ingredient they want to buy is coffee
+                    if (money < 2.00){ //checking if money amount is enough to buy ingredient
                         System.out.println("You do not have enough money to buy Coffee Beans.");
                         continue;
                     }
-                    orderFood.coffeeBeans++;
-                    money -= 2.00;
-                    System.out.println("You have added 1 Coffee Bean to your stock.");
+                    orderFood.coffeeBeans++; //adds 1 to coffee bean variable in the stock from the orderFood class
+                    money -= 2.00; //subtracting the amount of money the ingredient costs
+                    System.out.println("You have added 1 Coffee Bean to your stock."); //confirming the ingredient was bought
                 }
                 else if (input.equals("2")){
                     if (money < 1.00){
@@ -194,7 +194,7 @@ public class Cafe{
                 else{
                     System.out.println("Invalid input. Please try again.");
                 }
-                System.out.println("You have $" + money + " left.");
+                System.out.println("You have $" + money + " left."); //prints out the money left after each loop
             }
             //starting a day of the cafe
             System.out.println("Ready to start the day!");
