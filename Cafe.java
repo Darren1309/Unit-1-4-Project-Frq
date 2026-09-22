@@ -2,11 +2,13 @@ import java.util.Scanner;
 
 public class Cafe{
     public static void main(String[] args){
+        //Intro to cafe giving directions and asking input for name of cafe
         Scanner i = new Scanner(System.in);
         System.out.println("Welcome to your Cafe!");
         System.out.println("Please enter the name for your Cafe: ");
         String cafeName = i.nextLine();
         System.out.println("Welcome to the " + cafeName + " Cafe! The goal is to make as much money as possible in 7 days. \nYou will start with $100.00 and you will have to buy ingredients for your Cafe. \nYou will then have to serve customers and make money. Good luck!");
+        //declaring food items on the menu into the orderFood class
         orderFood coffee = new orderFood("Coffee", 6.50);
         orderFood muffin = new orderFood("Muffin", 7.00);
         orderFood sandwich = new orderFood("Sandwich", 9.00);
@@ -20,9 +22,10 @@ public class Cafe{
         orderFood toast = new orderFood("Toast", 3.00);
         double money = 100;
         int days = 0;
-
+        //Start of while loop that loops for 7 days the user will be managing the cafe
         while(days < 7){
             System.out.println("Welcome to Day " + (days + 1) + " of 7!");
+            //Printing out how many ingredients the user has and the cost of them to buy more
             System.out.println("Here is the ingredients you have in stock: ");
             System.out.println("1 Coffee Beans: " + orderFood.coffeeBeans + " $2.00");
             System.out.println("2 Milk: " + orderFood.milk + " $1.00");
@@ -41,6 +44,9 @@ public class Cafe{
             System.out.println("15 Bagels: " + orderFood.bagels + " $9.00 for 12");
             
             System.out.println("New Day! You have $" + money + " to spend on ingredients.");
+            //loops until user types "exit" and lets the user buy ingredients in the stock with the money they have,telling them if it's not enough
+            //entering a number correseponds with a ingredient, adding it to the stock and subtracting price by cost
+            
             while(true){
                 System.out.println("Type the number for the ingredient you would like to add to your stock, or type 'exit' to exit the program.");
                 String input = i.nextLine();
@@ -190,24 +196,26 @@ public class Cafe{
                 }
                 System.out.println("You have $" + money + " left.");
             }
+            //starting a day of the cafe
             System.out.println("Ready to start the day!");
-            int numCustomers = (int)(Math.random()*15)+7;
-            while(numCustomers > 0){
+            int numCustomers = (int)(Math.random()*15)+7; //generating a random int from 7-15 so there is 7-15 customers randomly per day
+            while(numCustomers > 0){ //looping until there are no customers left
                 boolean hasItem = true;
                 double price = 0;
-                int orderAmount = (int)(Math.random()*4)+1;
-                int order1 = (int)(Math.random()*11)+1;
+                int orderAmount = (int)(Math.random()*4)+1; //determines if the customer will order 1-4 items randomly
+                int order1 = (int)(Math.random()*11)+1; //determining what the customer will order using a random number 1-11 to determine
                 int order2 = (int)(Math.random()*11)+1;
                 int order3 = (int)(Math.random()*11)+1;
                 int order4 = (int)(Math.random()*11)+1;
                 String order = "";
-                if (orderAmount == 1 || orderAmount == 2 || orderAmount == 3 || orderAmount == 4){
-                    if (order1 == 1 && orderFood.coffeeBeans > 0 && orderFood.milk > 0){
-                        order += "Coffee";
-                        orderFood.coffeeBeans--;
+                if (orderAmount == 1 || orderAmount == 2 || orderAmount == 3 || orderAmount == 4){ 
+                    if (order1 == 1 && orderFood.coffeeBeans > 0 && orderFood.milk > 0){ //checks if the first order is 1 and if the ingredients are more than 1
+                        order += "Coffee"; //setting the order for the customer to Coffee
+                        orderFood.coffeeBeans--; //subtracting ingredients from the stock
                         orderFood.milk--;
-                        price = coffee.getPrice();
+                        price = coffee.getPrice(); //getting the price for the item from the coffee object from the orderFood class
                     }
+                    //same for the rest checking if the first order is the item then subtracting the ingredients from the stock then getting the price from object in the orderFood class
                     else if (order1 == 2 && orderFood.muffins > 0){
                         orderFood.muffins--;
                         order += "Muffin";
@@ -248,16 +256,16 @@ public class Cafe{
                     else{           
                         hasItem = false;
                     }
-                    Customer customer = new Customer(order);
-                    System.out.println(customer.getName() + " has ordered a " + customer.getOrder() + ".");
-                    if (!hasItem){
+                    Customer customer = new Customer(order); //creates a new customer with the order
+                    System.out.println(customer.getName() + " has ordered a " + customer.getOrder() + "."); //prints out the customer name and what they ordered
+                    if (!hasItem){ //if the ingredients are out prints that the item is out of stock
                         System.out.println("Sorry, we are out of that item.");
                     }
                     else{
-                        money += price;
+                        money += price; //adds the price of the item to the total money of the cafe
                     }
                 }
-                else if (orderAmount == 2 || orderAmount == 3 || orderAmount == 4){
+                else if (orderAmount == 2 || orderAmount == 3 || orderAmount == 4){ //checks if the order amount is 2 3 or 4 and does the same as above
                     if (order2 == 1 && orderFood.coffeeBeans > 0 && orderFood.milk > 0){
                         orderFood.coffeeBeans--;
                         orderFood.milk--;
@@ -300,7 +308,7 @@ public class Cafe{
                         money += price;
                     }
                 }
-                else if (orderAmount == 3 || orderAmount == 4){
+                else if (orderAmount == 3 || orderAmount == 4){ //checks if order amount is 3 or 4 and does the same as the above 2
                     if (order3 == 1 && orderFood.coffeeBeans > 0 && orderFood.milk > 0){
                         orderFood.coffeeBeans--;
                         orderFood.milk--;
@@ -343,7 +351,7 @@ public class Cafe{
                         money += price;
                     }
                 }
-                else{
+                else{ //only runs if order amount is 4 and does the same as the rest
                     if (order4 == 1 && orderFood.coffeeBeans > 0 && orderFood.milk > 0){
                         orderFood.coffeeBeans--;
                         orderFood.milk--;
@@ -387,14 +395,15 @@ public class Cafe{
                     }
                     
                 }
-                numCustomers--;
+                numCustomers--; //subtracts one customer from the amount of the day
                 System.out.println("Number of customers remaining: " + numCustomers);
-                System.out.println("You have $" + money + " left.");
+                System.out.println("You have $" + money + " left."); //prints amount of money after transaction
             }
-            days++;
+            days++; //adds a day to the amount of days
 
 
         }
+        //completed cafe simulation of 7 days and printing how much money was made after all 7 days
         System.out.println("You have completed 7 days of running your Cafe!");
         System.out.println("You have made $" + money + " in total.");
         System.out.println("Thank you for using the Cafe program!");
