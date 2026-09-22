@@ -1,6 +1,7 @@
 public class orderFood {
     private String name;
     private double price;
+    //declaring each ingredient as a variable with amount in stock that can be changed outside of this class
     public static int coffeeBeans = 0;
     public static int milk = 0;
     public static int muffins = 0;
@@ -21,16 +22,16 @@ public class orderFood {
 
     public static int bagels = 0;
 
-    public orderFood(String name, double price) {
+    public orderFood(String name, double price) { //constructor to create a food item with a name and price
         this.name = name;
         this.price = price;
     }
 
-    public String getName() {
+    public String getName() { //returns name of food item
         return name;
     }
 
-    public double getPrice() {
+    public double getPrice() { //returns the price of the food item
         return price;
     }
 
