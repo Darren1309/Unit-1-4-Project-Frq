@@ -1,5 +1,22 @@
 import java.util.Scanner;
 
+/*
+ * Playtest log 1 - Daniel Miao
+ * Potential improvements: add delay when customers order, fix floating-point math errors when subtracting amount in wallet (e.g round result to one decimal), print total amount that user earned (final$ - 100)
+ * Good aspects of program: input checking for invalid input, reasonable prices and earnings, large variety of inventory items for stock, randomization of customers
+ * 
+ * Playtest log 2 - Kavin Gahlaut
+ *  Potential improvements: Making sure that the customer's order is still printed out even if it is unable to be served.
+ * Good aspects: good input validation, randomizing of customer names, using public instance variables for better access to them
+ * 
+ * Playtest log 3 - William Xiong
+ * Potential improvements: floating point errors lol, yo what are the customers ordering bro ur losing customers, u gotta fix that
+ * also add a delay between dialogue so its not js spam. Also, buying is kinda tedious, u should add a buy how many option.
+ * also add a check option to see how much money u still have, it stops printing that if u do a too expensive thing
+ * Yo u Really gotta fix that ordered a " ". 
+ * 
+ */
+
 public class Cafe{
     public static void main(String[] args){
         //Intro to cafe giving directions and asking input for name of cafe
@@ -209,49 +226,69 @@ public class Cafe{
                 int order4 = (int)(Math.random()*11)+1;
                 String order = "";
                 if (orderAmount == 1 || orderAmount == 2 || orderAmount == 3 || orderAmount == 4){ 
-                    if (order1 == 1 && orderFood.coffeeBeans > 0 && orderFood.milk > 0){ //checks if the first order is 1 and if the ingredients are more than 1
+                    if (order1 == 1){
                         order += "Coffee"; //setting the order for the customer to Coffee
-                        orderFood.coffeeBeans--; //subtracting ingredients from the stock
-                        orderFood.milk--;
-                        price = coffee.getPrice(); //getting the price for the item from the coffee object from the orderFood class
+                        if (orderFood.coffeeBeans > 0 && orderFood.milk > 0){ //checks if the first order is 1 and if the ingredients are more than 1
+                            orderFood.coffeeBeans--; //subtracting ingredients from the stock
+                            orderFood.milk--;
+                            price = coffee.getPrice(); //getting the price for the item from the coffee object from the orderFood class
+                        }
                     }
+                
                     //same for the rest checking if the first order is the item then subtracting the ingredients from the stock then getting the price from object in the orderFood class
-                    else if (order1 == 2 && orderFood.muffins > 0){
-                        orderFood.muffins--;
-                        order += "Muffin";
-                        price = muffin.getPrice();
+                    else if (order1 == 2){
+                         order += "Muffin";
+                        if (orderFood.muffins > 0){
+                            orderFood.muffins--;
+                            price = muffin.getPrice();
+                        }
                     }
-                    else if (order1 == 3 && orderFood.turkey > 0 && orderFood.tomatoes > 0 && orderFood.lettuce > 0 && orderFood.bread > 0){
-                        orderFood.turkey--;
-                        orderFood.tomatoes--;
-                        orderFood.lettuce--;
-                        orderFood.bread--;
+                    else if (order1 == 3){
                         order += "Sandwich";
+                        if (orderFood.turkey > 0 && orderFood.tomatoes > 0 && orderFood.lettuce > 0 && orderFood.bread > 0){
+                            orderFood.turkey--;
+                            orderFood.tomatoes--;
+                            orderFood.lettuce--;
+                            orderFood.bread--;
+                        
                         price = sandwich.getPrice();
+                        }
                     }
-                    else if (order1 == 4 && orderFood.pancakes > 0){
-                        orderFood.pancakes--;
+                    else if (order1 == 4 ){
                         order += "Pancakes";
-                        price = pancake.getPrice();
+                        if (orderFood.pancakes > 0){
+                            orderFood.pancakes--;
+                            
+                            price = pancake.getPrice();
+                        }
                     }
-                    else if (order1 == 5 && orderFood.waffles > 0){
-                        orderFood.waffles--;
+                    else if (order1 == 5 ){
                         order += "Waffles";
-                        price = waffle.getPrice();
+                        if (orderFood.waffles > 0){
+                            orderFood.waffles--;
+                            
+                            price = waffle.getPrice();
+                        }
                     }
-                    else if (order1 == 6 && orderFood.tortillas > 0 && orderFood.sausage > 0 && orderFood.potatoes > 0 && orderFood.cheese > 0 && orderFood.eggs > 0){
-                        orderFood.tortillas--;
-                        orderFood.sausage--;
-                        orderFood.potatoes--;
-                        orderFood.cheese--;
-                        orderFood.eggs--;
+                    else if (order1 == 6 ){
                         order += "Breakfast Burrito";
+                        if (orderFood.tortillas > 0 && orderFood.sausage > 0 && orderFood.potatoes > 0 && orderFood.cheese > 0 && orderFood.eggs > 0){
+                            orderFood.tortillas--;
+                            orderFood.sausage--;
+                            orderFood.potatoes--;
+                            orderFood.cheese--;
+                            orderFood.eggs--;
+                            
                         price = breakfastBurrito.getPrice();
+                        }
                     }
-                    else if (order1 == 7 && orderFood.bagels > 0){
-                        orderFood.bagels--;
+                    else if (order1 == 7 ){
                         order += "Bagel";
-                        price = bagel.getPrice();
+                        if (orderFood.bagels > 0){
+                            orderFood.bagels--;
+                            
+                            price = bagel.getPrice();
+                        }
                     }
                     else{           
                         hasItem = false;
@@ -265,35 +302,56 @@ public class Cafe{
                         money += price; //adds the price of the item to the total money of the cafe
                     }
                 }
-                else if (orderAmount == 2 || orderAmount == 3 || orderAmount == 4){ //checks if the order amount is 2 3 or 4 and does the same as above
-                    if (order2 == 1 && orderFood.coffeeBeans > 0 && orderFood.milk > 0){
-                        orderFood.coffeeBeans--;
-                        orderFood.milk--;
+                if (orderAmount == 2 || orderAmount == 3 || orderAmount == 4){ //checks if the order amount is 2 3 or 4 and does the same as above
+                    if (order2 == 1 ){
+                        order += "Coffee";
+                        if (orderFood.coffeeBeans > 0 && orderFood.milk > 0){
+                            orderFood.coffeeBeans--;
+                            orderFood.milk--;
+                        }
                     }
-                    else if (order2 == 2 && orderFood.muffins > 0){
-                        orderFood.muffins--;
+                    else if (order2 == 2 ){
+                        order += "Muffin";
+                        if (orderFood.muffins > 0){
+                            orderFood.muffins--;
+                        }
                     }
-                    else if (order2 == 3 && orderFood.turkey > 0 && orderFood.tomatoes > 0 && orderFood.lettuce > 0 && orderFood.bread > 0){
-                        orderFood.turkey--;
-                        orderFood.tomatoes--;
-                        orderFood.lettuce--;
-                        orderFood.bread--;
+                    else if (order2 == 3 ){
+                        order += "Sandwich";
+                        if (orderFood.turkey > 0 && orderFood.tomatoes > 0 && orderFood.lettuce > 0 && orderFood.bread > 0){
+                            orderFood.turkey--;
+                            orderFood.tomatoes--;
+                            orderFood.lettuce--;
+                            orderFood.bread--;
+                        }
                     }
-                    else if (order2 == 4 && orderFood.pancakes > 0){
-                        orderFood.pancakes--;
+                    else if (order2 == 4){
+                        order += "Pancakes";
+                        if (orderFood.pancakes > 0){
+                            orderFood.pancakes--;
+                        }
                     }
-                    else if (order2 == 5 && orderFood.waffles > 0){
-                        orderFood.waffles--;
+                    else if (order2 == 5){
+                        order += "Waffle";
+                        if (orderFood.waffles > 0){
+                            orderFood.waffles--;
+                        }
                     }
-                    else if (order2 == 6 && orderFood.tortillas > 0 && orderFood.sausage > 0 && orderFood.potatoes > 0 && orderFood.cheese > 0 && orderFood.eggs > 0){
-                        orderFood.tortillas--;
-                        orderFood.sausage--;
-                        orderFood.potatoes--;
+                    else if (order2 == 6){
+                        order += "Breakfast Burrito";
+                        if (orderFood.tortillas > 0 && orderFood.sausage > 0 && orderFood.potatoes > 0 && orderFood.cheese > 0 && orderFood.eggs > 0){
+                            orderFood.tortillas--;
+                            orderFood.sausage--;
+                            orderFood.potatoes--;
                         orderFood.cheese--;
                         orderFood.eggs--;
+                        }
                     }
-                    else if (order2 == 7 && orderFood.bagels > 0){
-                        orderFood.bagels--;
+                    else if (order2 == 7){
+                        order += "Bagel";
+                        if (orderFood.bagels > 0){
+                            orderFood.bagels--;
+                        }
                     }
                     else{
                         System.out.println("Sorry, we are out of that item.");
@@ -308,35 +366,56 @@ public class Cafe{
                         money += price;
                     }
                 }
-                else if (orderAmount == 3 || orderAmount == 4){ //checks if order amount is 3 or 4 and does the same as the above 2
-                    if (order3 == 1 && orderFood.coffeeBeans > 0 && orderFood.milk > 0){
-                        orderFood.coffeeBeans--;
-                        orderFood.milk--;
+                if (orderAmount == 3 || orderAmount == 4){ //checks if order amount is 3 or 4 and does the same as the above 2
+                    if (order3 == 1 ){
+                        order += "Coffee";
+                        if (orderFood.coffeeBeans > 0 && orderFood.milk > 0){
+                            orderFood.coffeeBeans--;
+                            orderFood.milk--;
+                        }
                     }
-                    else if (order3 == 2 && orderFood.muffins > 0){
-                        orderFood.muffins--;
+                    else if (order3 == 2){
+                        order += "Muffin";
+                        if (orderFood.muffins > 0){
+                            orderFood.muffins--;
+                        }
                     }
-                    else if (order3 == 3 && orderFood.turkey > 0 && orderFood.tomatoes > 0 && orderFood.lettuce > 0 && orderFood.bread > 0){
-                        orderFood.turkey--;
-                        orderFood.tomatoes--;
-                        orderFood.lettuce--;
-                        orderFood.bread--;
+                    else if (order3 == 3){
+                        order += "Sandwich";
+                        if (orderFood.turkey > 0 && orderFood.tomatoes > 0 && orderFood.lettuce > 0 && orderFood.bread > 0){
+                            orderFood.turkey--;
+                            orderFood.tomatoes--;
+                            orderFood.lettuce--;
+                            orderFood.bread--;
+                        }
                     }
-                    else if (order3 == 4 && orderFood.pancakes > 0){
-                        orderFood.pancakes--;
+                    else if (order3 == 4){
+                        order += "Pancakes";
+                        if (orderFood.pancakes > 0){
+                            orderFood.pancakes--;
+                        }
                     }
-                    else if (order3 == 5 && orderFood.waffles > 0){
-                        orderFood.waffles--;
+                    else if (order3 == 5){
+                        order += "Waffle";
+                        if (orderFood.waffles > 0){
+                            orderFood.waffles--;
+                        }
                     }
-                    else if (order3 == 6 && orderFood.tortillas > 0 && orderFood.sausage > 0 && orderFood.potatoes > 0 && orderFood.cheese > 0 && orderFood.eggs > 0){
-                        orderFood.tortillas--;
-                        orderFood.sausage--;
-                        orderFood.potatoes--;
-                        orderFood.cheese--;
+                    else if (order3 == 6){
+                        order += "Breakfast Burrito";
+                        if (orderFood.tortillas > 0 && orderFood.sausage > 0 && orderFood.potatoes > 0 && orderFood.cheese > 0 && orderFood.eggs > 0){
+                            orderFood.tortillas--;
+                            orderFood.sausage--;
+                            orderFood.potatoes--;
+                            orderFood.cheese--;
                         orderFood.eggs--;
+                        }
                     }
-                    else if (order3 == 7 && orderFood.bagels > 0){
-                        orderFood.bagels--;
+                    else if (order3 == 7){
+                        order += "Bagel";
+                        if (orderFood.bagels > 0){
+                            orderFood.bagels--;
+                        }
                     }
                     else{
                         System.out.println("Sorry, we are out of that item.");
@@ -351,35 +430,56 @@ public class Cafe{
                         money += price;
                     }
                 }
-                else{ //only runs if order amount is 4 and does the same as the rest
-                    if (order4 == 1 && orderFood.coffeeBeans > 0 && orderFood.milk > 0){
-                        orderFood.coffeeBeans--;
-                        orderFood.milk--;
+                if(orderAmount == 4){ //only runs if order amount is 4 and does the same as the rest
+                    if (order4 == 1){
+                        order += "Coffee";
+                        if (orderFood.coffeeBeans > 0 && orderFood.milk > 0){
+                            orderFood.coffeeBeans--;
+                            orderFood.milk--;
+                        }
                     }
-                    else if (order4 == 2 && orderFood.muffins > 0){
-                        orderFood.muffins--;
+                    else if (order4 == 2){
+                        order += "Muffin";
+                        if (orderFood.muffins > 0){
+                            orderFood.muffins--;
+                        }
                     }
-                    else if (order4 == 3 && orderFood.turkey > 0 && orderFood.tomatoes > 0 && orderFood.lettuce > 0 && orderFood.bread > 0){
-                        orderFood.turkey--;
-                        orderFood.tomatoes--;
-                        orderFood.lettuce--;
-                        orderFood.bread--;
+                    else if (order4 == 3){
+                        order += "Sandwich";
+                        if (orderFood.turkey > 0 && orderFood.tomatoes > 0 && orderFood.lettuce > 0 && orderFood.bread > 0){
+                            orderFood.turkey--;
+                            orderFood.tomatoes--;
+                            orderFood.lettuce--;
+                            orderFood.bread--;
+                        }
                     }
-                    else if (order4 == 4 && orderFood.pancakes > 0){
-                        orderFood.pancakes--;
+                    else if (order4 == 4){
+                        order += "Pancakes";
+                        if (orderFood.pancakes > 0){
+                            orderFood.pancakes--;
+                        }
                     }
-                    else if (order4 == 5 && orderFood.waffles > 0){
-                        orderFood.waffles--;
+                    else if (order4 == 5){
+                        order += "Waffles";
+                        if (orderFood.waffles > 0){
+                            orderFood.waffles--;
+                        }
                     }
-                    else if (order4 == 6 && orderFood.tortillas > 0 && orderFood.sausage > 0 && orderFood.potatoes > 0 && orderFood.cheese > 0 && orderFood.eggs > 0){
-                        orderFood.tortillas--;
-                        orderFood.sausage--;
-                        orderFood.potatoes--;
-                        orderFood.cheese--;
-                        orderFood.eggs--;
+                    else if (order4 == 6 ){
+                        order += "Breakfast Burrito";
+                        if (orderFood.tortillas > 0 && orderFood.sausage > 0 && orderFood.potatoes > 0 && orderFood.cheese > 0 && orderFood.eggs > 0){
+                            orderFood.tortillas--;
+                            orderFood.sausage--;
+                            orderFood.potatoes--;
+                            orderFood.cheese--;
+                            orderFood.eggs--;
+                        }
                     }
-                    else if (order4 == 7 && orderFood.bagels > 0){
-                        orderFood.bagels--;
+                    else if (order4 == 7){
+                        order += "Bagel";
+                        if (orderFood.bagels > 0){
+                            orderFood.bagels--;
+                        }
                     }
                     else{
                         System.out.println("Sorry, we are out of that item.");
@@ -405,10 +505,13 @@ public class Cafe{
         }
         //completed cafe simulation of 7 days and printing how much money was made after all 7 days
         System.out.println("You have completed 7 days of running your Cafe!");
-        System.out.println("You have made $" + money + " in total.");
+        System.out.println("You have have $" + money + " in total.");
+        System.out.println("You have made $" + (money - 100) + " in profit.");
         System.out.println("Thank you for using the Cafe program!");
+    }
 
-    }
+}
+
     
-    }
+
 
