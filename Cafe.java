@@ -448,9 +448,8 @@ public class Cafe{
                         money += price; //adds the price of the item to the total money of the cafe
                         money = Math.round(money * 100.0) / 100.0;
                         today.addSale(price); //adds the price of the item to the total sales of the day
-
-                    
                     }
+                }
 
                 price = 0; //resets the price to 0 for next order
                 hasItem = true; //resets the hasItem variable to true for next order
@@ -708,17 +707,17 @@ public class Cafe{
             totalSales(dailySales));
 
         System.out.printf("Average daily sales: $%.2f%n",
-            averageSales(dailySales));
+            averageSales(dailySales)); // Call the averageSales method to calculate the average daily sales.
 
         System.out.printf("Best day's sales: $%.2f%n",
-            bestDaySales(dailySales));
+            bestDaySales(dailySales)); // Call the bestDaySales method to find the greatest daily sales value.
 
         System.out.println("Reports created: "
             + DayReport.getReportsCreated());
         System.out.println("You have have $" + money + " in total.");
         double profit = money - 100;
         profit = Math.round(profit * 100.0) / 100.0; //eliminate floating point error
-        System.out.println("You have made $" + profit + " in profit.");
+        System.out.println("You have made $" + profit + " in profit."); //calculating profit by subtracting the starting money from the total money
         System.out.println("Thank you for using the Cafe program!");
     }
 
