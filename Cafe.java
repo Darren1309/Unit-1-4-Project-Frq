@@ -709,6 +709,7 @@ public class Cafe{
 
         System.out.printf("Average daily sales: $%.2f%n",
             averageSales(dailySales));
+
         System.out.printf("Best day's sales: $%.2f%n",
             bestDaySales(dailySales));
 
