@@ -36,10 +36,13 @@ public class Cafe{
         orderFood toast = new orderFood("Toast", 3.00);
         double money = 100.0;
         int days = 0;
-        orderFood[] menu = {coffee, muffin, sandwich, pancake, waffle, breakfastBurrito, bagel, toast};
+        double[] dailySales = new double[7]; //array to store daily sales for each of the 7 days
+        DayReport[] reports = new DayReport[7];//array to store DayReport objects for each of the 7 days
         //Start of while loop that loops for 7 days the user will be managing the cafe
         while(days < 7){
             System.out.println("Welcome to Day " + (days + 1) + " of 7!");
+            DayReport today = new DayReport(days + 1);//creating a new DayReport object for the day
+            reports[days] = today;//storing the DayReport object in the reports array
             //Printing out how many ingredients the user has and the cost of them to buy more
             System.out.println("Here is the ingredients you have in stock: ");
             System.out.println("1 Coffee Beans: " + orderFood.coffeeBeans + " $2.00");
@@ -231,10 +234,10 @@ public class Cafe{
                 boolean hasItem = true;
                 double price = 0;
                 int orderAmount = (int)(Math.random()*4)+1; //determines if the customer will order 1-4 items randomly
-                int order1 = (int)(Math.random()*7)+1; //determining what the customer will order using a random number 1-11 to determine
-                int order2 = (int)(Math.random()*7)+1;
-                int order3 = (int)(Math.random()*7)+1;
-                int order4 = (int)(Math.random()*7)+1;
+                int order1 = (int)(Math.random()*8)+1; //determining what the customer will order using a random number 1-11 to determine
+                int order2 = (int)(Math.random()*8)+1;
+                int order3 = (int)(Math.random()*8)+1;
+                int order4 = (int)(Math.random()*8)+1;
                 String order = "";
                 String Order2 = "";
                 String Order3 = "";
@@ -247,6 +250,9 @@ public class Cafe{
                             orderFood.milk--;
                             price = coffee.getPrice(); //getting the price for the item from the coffee object from the orderFood class
                         }
+                        else{
+                            hasItem = false; //if the ingredients are out of stock then it sets the hasItem variable to false
+                        }
                     }
                 
                     //same for the rest checking if the first order is the item then subtracting the ingredients from the stock then getting the price from object in the orderFood class
@@ -255,6 +261,9 @@ public class Cafe{
                         if (orderFood.muffins > 0){
                             orderFood.muffins--;
                             price = muffin.getPrice();
+                        }
+                        else{
+                            hasItem = false;
                         }
                     }
                     else if (order1 == 3){
@@ -267,6 +276,9 @@ public class Cafe{
                         
                         price = sandwich.getPrice();
                         }
+                        else{
+                            hasItem = false;
+                        }
                     }
                     else if (order1 == 4 ){
                         order += "Pancakes";
@@ -275,6 +287,9 @@ public class Cafe{
                             
                             price = pancake.getPrice();
                         }
+                        else{
+                            hasItem = false;
+                        }
                     }
                     else if (order1 == 5 ){
                         order += "Waffles";
@@ -282,6 +297,9 @@ public class Cafe{
                             orderFood.waffles--;
                             
                             price = waffle.getPrice();
+                        }
+                        else{
+                            hasItem = false;
                         }
                     }
                     else if (order1 == 6 ){
@@ -295,6 +313,9 @@ public class Cafe{
                             
                         price = breakfastBurrito.getPrice();
                         }
+                        else{
+                            hasItem = false;
+                        }
                     }
                     else if (order1 == 7 ){
                         order += "Bagel";
@@ -303,19 +324,30 @@ public class Cafe{
                             
                             price = bagel.getPrice();
                         }
+                        else{
+                            hasItem = false;
+                        }
+                    }
+                    else if(order1 == 8 ){
+                        order += "Toast";
+                        if (orderFood.bread > 0){
+                            orderFood.bread--;
+                            price = toast.getPrice();
+                        }
+                        else{
+                            hasItem = false;
+                        }
                     }
                     else{           
                         hasItem = false;
                     }
-
-                    
-                    
                     if (!hasItem){ //if the ingredients are out prints that the item is out of stock
                         System.out.println("Sorry, we are out of that item.");
                     }
                     else{
                         money += price; //adds the price of the item to the total money of the cafe
                         money = Math.round(money * 100.0) / 100.0;
+                        today.addSale(price); //adds the price of the item to the total sales of the day
                     }
                 
                 price = 0; //resets the price to 0 for next order
@@ -328,12 +360,18 @@ public class Cafe{
                             orderFood.milk--;
                             price = coffee.getPrice();
                         }
+                        else{
+                            hasItem = false;
+                        }
                     }
                     else if (order2 == 2 ){
                         Order2 += "Muffin";
                         if (orderFood.muffins > 0){
                             orderFood.muffins--;
                             price = muffin.getPrice();
+                        }
+                        else{
+                            hasItem = false;
                         }
                     }
                     else if (order2 == 3 ){
@@ -345,12 +383,18 @@ public class Cafe{
                             orderFood.bread--;
                             price = sandwich.getPrice();
                         }
+                        else{
+                            hasItem = false;
+                        }
                     }
                     else if (order2 == 4){
                         Order2 += "Pancakes";
                         if (orderFood.pancakes > 0){
                             orderFood.pancakes--;
                             price = pancake.getPrice();
+                        }
+                        else{
+                            hasItem = false;
                         }
                     }
                     else if (order2 == 5){
@@ -359,6 +403,9 @@ public class Cafe{
                             orderFood.waffles--;
                             price = waffle.getPrice();
                         }
+                        else{
+                            hasItem = false;
+                        }
                     }
                     else if (order2 == 6){
                         Order2 += "Breakfast Burrito";
@@ -366,9 +413,12 @@ public class Cafe{
                             orderFood.tortillas--;
                             orderFood.sausage--;
                             orderFood.potatoes--;
-                        orderFood.cheese--;
-                        orderFood.eggs--;
-                        price = breakfastBurrito.getPrice();
+                            orderFood.cheese--;
+                            orderFood.eggs--;
+                            price = breakfastBurrito.getPrice();
+                        }
+                        else{
+                            hasItem = false;
                         }
                     }
                     else if (order2 == 7){
@@ -377,15 +427,32 @@ public class Cafe{
                             orderFood.bagels--;
                             price = bagel.getPrice();
                         }
+                        else{
+                            hasItem = false;
+                        }
+                    }
+                    else if (order2 == 8 ){
+                        Order2 += "Toast";
+                        if (orderFood.bread > 0){
+                            orderFood.bread--;
+                            price = toast.getPrice();
+                        }
+                        else{
+                            hasItem = false;
+                        }
+                    }
+                    if (!hasItem){ //if the ingredients are out prints that the item is out of stock
+                        System.out.println("Sorry, we are out of that item.");
                     }
                     else{
-                        System.out.println("Sorry, we are out of that item.");
-                        hasItem = false;
-                    }
+                        money += price; //adds the price of the item to the total money of the cafe
+                        money = Math.round(money * 100.0) / 100.0;
+                        today.addSale(price); //adds the price of the item to the total sales of the day
 
                     
                     }
-                
+
+                price = 0; //resets the price to 0 for next order
                 hasItem = true; //resets the hasItem variable to true for next order
                 if (orderAmount == 3 || orderAmount == 4){ //checks if order amount is 3 or 4 and does the same as the above 2
                     if (order3 == 1 ){
@@ -395,12 +462,18 @@ public class Cafe{
                             orderFood.milk--;
                             price = coffee.getPrice();
                         }
+                        else{
+                            hasItem = false;
+                        }
                     }
                     else if (order3 == 2){
                         Order3 += "Muffin";
                         if (orderFood.muffins > 0){
                             orderFood.muffins--;
                             price = muffin.getPrice();
+                        }
+                        else{
+                            hasItem = false;
                         }
                     }
                     else if (order3 == 3){
@@ -412,6 +485,9 @@ public class Cafe{
                             orderFood.bread--;
                             price = sandwich.getPrice();
                         }
+                        else{
+                            hasItem = false;
+                        }
                     }
                     else if (order3 == 4){
                         Order3 += "Pancakes";
@@ -419,12 +495,18 @@ public class Cafe{
                             orderFood.pancakes--;
                             price = pancake.getPrice();
                         }
+                        else{
+                            hasItem = false;
+                        }
                     }
                     else if (order3 == 5){
                         Order3 += "Waffle";
                         if (orderFood.waffles > 0){
                             orderFood.waffles--;
                             price = waffle.getPrice();
+                        }
+                        else{
+                            hasItem = false;
                         }
                     }
                     else if (order3 == 6){
@@ -437,6 +519,9 @@ public class Cafe{
                         orderFood.eggs--;
                         price = breakfastBurrito.getPrice();
                         }
+                        else{
+                            hasItem = false;
+                        }
                     }
                     else if (order3 == 7){
                         Order3 += "Bagel";
@@ -444,13 +529,30 @@ public class Cafe{
                             orderFood.bagels--;
                             price = bagel.getPrice();
                         }
+                        else{
+                            hasItem = false;
+                        }
+                    }
+                    else if (order3 == 8 ){
+                        Order3 += "Toast";
+                        if (orderFood.bread > 0){
+                            orderFood.bread--;
+                            price = toast.getPrice();
+                        }
+                        else{
+                            hasItem = false;
+                        }
+                    }
+                    if (!hasItem){ //if the ingredients are out prints that the item is out of stock
+                        System.out.println("Sorry, we are out of that item.");
                     }
                     else{
-                        System.out.println("Sorry, we are out of that item.");
-                        hasItem = false;
+                        money += price; //adds the price of the item to the total money of the cafe
+                        money = Math.round(money * 100.0) / 100.0;
+                        today.addSale(price); //adds the price of the item to the total sales of the day
                     }
                 }
-
+                price = 0; //resets the price to 0 for next order
                 hasItem = true; //resets the hasItem variable to true for next order
                 if(orderAmount == 4){ //only runs if order amount is 4 and does the same as the rest
                     if (order4 == 1){
@@ -460,12 +562,18 @@ public class Cafe{
                             orderFood.milk--;
                             price = coffee.getPrice();
                         }
+                        else{
+                            hasItem = false;
+                        }
                     }
                     else if (order4 == 2){
                         Order4 += "Muffin";
                         if (orderFood.muffins > 0){
                             orderFood.muffins--;
                             price = muffin.getPrice();
+                        }
+                        else{
+                            hasItem = false;
                         }
                     }
                     else if (order4 == 3){
@@ -477,6 +585,9 @@ public class Cafe{
                             orderFood.bread--;
                             price = sandwich.getPrice();
                         }
+                        else{
+                            hasItem = false;
+                        }
                     }
                     else if (order4 == 4){
                         Order4 += "Pancakes";
@@ -484,12 +595,18 @@ public class Cafe{
                             orderFood.pancakes--;
                             price = pancake.getPrice();
                         }
+                        else{
+                            hasItem = false;
+                        }
                     }
                     else if (order4 == 5){
                         Order4 += "Waffles";
                         if (orderFood.waffles > 0){
                             orderFood.waffles--;
                             price = waffle.getPrice();
+                        }
+                        else{
+                            hasItem = false;
                         }
                     }
                     else if (order4 == 6 ){
@@ -502,6 +619,9 @@ public class Cafe{
                             orderFood.eggs--;
                             price = breakfastBurrito.getPrice();
                         }
+                        else{
+                            hasItem = false;
+                        }
                     }
                     else if (order4 == 7){
                         Order4 += "Bagel";
@@ -509,23 +629,43 @@ public class Cafe{
                             orderFood.bagels--;
                             price = bagel.getPrice();
                         }
+                        else{
+                            hasItem = false;
+                        }
+                    }
+                    else if (order4 == 8 ){
+                        Order4 += "Toast";
+                        if (orderFood.bread > 0){
+                            orderFood.bread--;
+                            price = toast.getPrice();
+                        }
+                        else{
+                            hasItem = false;
+                        }
+                    }
+                    if (!hasItem){ //if the ingredients are out prints that the item is out of stock
+                        System.out.println("Sorry, we are out of that item.");
                     }
                     else{
-                        System.out.println("Sorry, we are out of that item.");
-                        hasItem = false;
+                        money += price; //adds the price of the item to the total money of the cafe
+                        money = Math.round(money * 100.0) / 100.0;
+                        today.addSale(price); //adds the price of the item to the total sales of the day
                     }
+                }
+                    Customer customer;
                     if (orderAmount == 1) {
-                        Customer customer = new Customer(order);
+                        customer = new Customer(order);
                     }
                     else if (orderAmount == 2) {
-                        Customer customer = new Customer(order, Order2);
+                        customer = new Customer(order, Order2);
                     }
                     else if (orderAmount == 3) {
-                        Customer customer = new Customer(order, Order2, Order3);
+                        customer = new Customer(order, Order2, Order3);
                     }
                     else {
-                        Customer customer = new Customer(order, Order2, Order3, Order4);
+                        customer = new Customer(order, Order2, Order3, Order4);
                     }
+                    today.addCustomer(customer); //adds the customer to the DayReport object for the day
                     System.out.print(customer.getName() + " has ordered: ");
                     System.out.print(customer.getOrder());
 
@@ -539,12 +679,14 @@ public class Cafe{
                         System.out.print(", " + customer.getOrder4());
                     }
 
-                    System.out.println(".");
-                    
-                }
-                numCustomers--; //subtracts one customer from the amount of the day
+                    System.out.println(".");    
+                    numCustomers--; //subtracts one customer from the amount of the day
+                
                 System.out.println("Number of customers remaining: " + numCustomers);
                 System.out.println("You have $" + money + " left."); //prints amount of money after transaction
+            }
+            dailySales[days] = today.getSales(); //adds the price of the item to the total sales of the day
+            System.out.println(today);
             
             days++; //adds a day to the amount of days
 
@@ -552,13 +694,65 @@ public class Cafe{
         }
         //completed cafe simulation of 7 days and printing how much money was made after all 7 days
         System.out.println("You have completed 7 days of running your Cafe!");
+        System.out.println("\n===== WEEKLY SALES REPORT =====");
+
+        // Print each day's report.
+        for (int j = 0; j < reports.length; j++) {
+            if (reports[j] != null) {
+                System.out.println(reports[j].toString());
+            }
+        }
+
+        // Print the weekly statistics.
+        System.out.printf("Total sales: $%.2f%n",
+            totalSales(dailySales));
+
+        System.out.printf("Average daily sales: $%.2f%n",
+            averageSales(dailySales));
+        System.out.printf("Best day's sales: $%.2f%n",
+            bestDaySales(dailySales));
+
+        System.out.println("Reports created: "
+            + DayReport.getReportsCreated());
         System.out.println("You have have $" + money + " in total.");
-        System.out.println("You have made $" + (money - 100) + " in profit.");
+        double profit = money - 100;
+        profit = Math.round(profit * 100.0) / 100.0; //eliminate floating point error
+        System.out.println("You have made $" + profit + " in profit.");
         System.out.println("Thank you for using the Cafe program!");
     }
 
-}
 
-    
+    /** Calculates the total sales across all days. */
+    public static double totalSales(double[] sales) {
+        double total = 0;
+        for (double amount : sales) {
+            total += amount;
+        }
+        return total;
+    }
+
+    /** Calculates the average sales per day. */
+    public static double averageSales(double[] sales) {
+        if (sales.length == 0) {
+            return 0;
+        }
+        return totalSales(sales) / sales.length;
+    }
+
+    /** Finds the greatest daily sales value. */
+    public static double bestDaySales(double[] sales) {
+        if (sales.length == 0) {
+            return 0;
+        }
+
+        double highest = sales[0];
+        for (int i = 1; i < sales.length; i++) {
+            if (sales[i] > highest) {
+                highest = sales[i];
+            }
+        }
+        return highest;
+    }
+}
 
 
