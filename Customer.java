@@ -7,6 +7,7 @@ public class Customer {
 
     public Customer(String order1) { //if the customer only has one order runs this cunstructor
         int num = (int)(Math.random()*100); //generates random number 1-100 to determine which name the customer is given through a group of 10 names
+        //PRAISE: i love how you generate names for each of the customers! it gives them so much personality
         if (num < 10){
             this.name = "Asuna Y";
         }

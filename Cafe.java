@@ -45,6 +45,7 @@ public class Cafe{
             reports[days] = today;//storing the DayReport object in the reports array
             //Printing out how many ingredients the user has and the cost of them to buy more
             System.out.println("Here is the ingredients you have in stock: ");
+            //STYLE: maybe make a method to print out all of the ingredients and their prices to reduce the number of print statements?
             System.out.println("1 Coffee Beans: " + orderFood.coffeeBeans + " $2.00");
             System.out.println("2 Milk: " + orderFood.milk + " $1.00");
             System.out.println("3 Muffins: " + orderFood.muffins + " $3.00");
@@ -72,6 +73,7 @@ public class Cafe{
                     System.out.println("Thank you for using the Cafe program!");
                     break;
                 }
+                //STYLE: maybe reduce the amount of else if statements by making a method or smth that checks whether you have enough money or not?
                 else if (input.equals("1")){ //checking if the ingredient they want to buy is coffee
                     if (money < 2.00){ //checking if money amount is enough to buy ingredient
                         System.out.println("You do not have enough money to buy Coffee Beans.");
@@ -242,7 +244,7 @@ public class Cafe{
                 String Order2 = "";
                 String Order3 = "";
                 String Order4 = "";
-
+//STYLE: maybe simplify the code by reducing the amount of if-statements by making a method or smth?
                     if (order1 == 1){
                         order += "Coffee"; //setting the order for the customer to Coffee
                         if (orderFood.coffeeBeans > 0 && orderFood.milk > 0){ //checks if the first order is 1 and if the ingredients are more than 1

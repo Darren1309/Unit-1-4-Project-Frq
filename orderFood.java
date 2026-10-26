@@ -2,6 +2,7 @@ public class orderFood {
     private String name;
     private double price;
     //declaring each ingredient as a variable with amount in stock that can be changed outside of this class
+    //PRAISE: i love how many different ingredients you have in your cafe, and it's so cool some of the ingredients are needed for recipes! it gives a very realistic experience
     public static int coffeeBeans = 0;
     public static int milk = 0;
     public static int muffins = 0;

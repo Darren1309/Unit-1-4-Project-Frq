@@ -81,6 +81,7 @@ public class DayReport {
     }
 
     /** Returns a summary of the day's performance. */
+    //PRAISE: i really love the formatting the toString method has because it makes it really easy to read in the console.
     public String toString() {
         return "Day " + day
             + " | Sales: $" + String.format("%.2f", sales)
