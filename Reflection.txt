@@ -1,0 +1,48 @@
+1.My new class, DayReport, represents the results of one day in my cafe simulation. It has four instance variables like, 
+day, that stores the day number, sales, that stores the total money earned that day, customers, that stores an array of 
+Customer objects, and customerCount, which, tracks how many customers have been recorded. The Cafe class creates and stores 
+DayReport objects in an array to keep track of the results from each day. I designed it this way to separate the daily 
+report information from the main, making the program easier to organize.
+2. On lines 11-17 I use the this keyword. this.day = day; this.sales = 0.0;this.customers = new Customer[maxCustomers]; 
+this.customerCount = 0; If I didn't use the this keyword, it would just call the local variable and would not change the correct
+variable.
+3. One static member in my code is reportsCreated, which is declared on line 8 of DayReport,
+private static int reportsCreated = 0;
+I made this variable static because it counts the total number of DayReport objects created across the entire program. 
+All DayReport objects share the same counter. If I changed it to a non-static variable, each object would have its own 
+counter, so it would not correctly track the total number of reports created. One instance member is sales, declared on line 3,
+private double sales; 
+I made sales an instance variable because each day needs its own sales total. 
+If I made it static, every DayReport object would share the same sales value, and the sales from different days 
+would get mixed together.
+4. I chose bestDaySales method in Cafe.java (lines 745-758). If the array is double[] sales = {120.0, 85.0, 150.0, 100.0};
+For the initial iteration, i =0 sales[i] = 120.0 and the highest after comparison is 120.0.
+For iteration 1, i = 1 sales[i]= 85.0 and the highest after comparison is 120.0.
+For iteration 2, i = 2 sales[i]= 150.0 and the highest after comparison is 150.0.
+For iteration 3, i = 3 sales[i]= 100.0 and the highest after comparison is 150.0.
+After the loop the method returns 150.0 as it is the highest sale in the array.
+5. My program uses checks to prevent errors when arrays are empty, full, or contain null elements.
+For an empty sales array, the averageSales method checks whether the array length is zero before 
+calculating the average (lines 738–740 of Cafe.java)
+This prevents division by zero. The bestDaySales method also checks whether the array is empty before accessing 
+sales[0] (lines 746–748). This prevents an ArrayIndexOutOfBoundsException.
+For a full customer array, the addCustomer method checks whether there is space before inserting a 
+customer (lines 64–70 of DayReport.java)
+If the array is full, the method returns false instead of trying to insert an element outside the array's bounds.
+For null customer values, addCustomer checks whether the customer is null (lines 60–62 of DayReport.java)
+This prevents the method from storing a null customer. In addition, Cafe checks that a report is not null before printing it 
+(lines 702–705). These checks help prevent a NullPointerException. The checks protect the situations they cover, although 
+any future code that reads an array element directly should also check for null when necessary.
+6. Daniel suggested improving the handling of floating point errors and displaying the total amount 
+earned. Kavin suggested that a customer's order should still be printed even if the cafe cannot serve it. 
+William also suggested fixing floating-point errors, making customer orders clearer, and adding a way to check the remaining money.
+These comments helped identify areas where the game could be clearer and more reliable.
+One change I made was rounding the money value to two decimal places to reduce floating point display and calculation problems
+used throughout my code when I add or subtruct amounts.
+7.A real version of my cafe program could help a business owner track daily sales and customer activity, making it easier to 
+manage inventory and understand how the business is doing. However, storing customer information could create privacy issues 
+if personal details were collected or shared without permission.
+One design choice that would make the program safer and more private would be to store only the customer 
+information necessary for managing orders and to avoid saving sensitive personal information. 
+I would also limit access to sales and customer records to authorized users. These choices would help protect customers'
+privacy while still allowing the cafe owner to use the program effectively.
